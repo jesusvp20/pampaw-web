@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { createAppointment } from "@/actions/appointments/create-appointment";
+import { useRouter } from "next/navigation";
 import GoogleAuthButton from "@/components/appointments/google-auth-button";
 
 type FinalDataFormProps = {
@@ -10,12 +10,11 @@ type FinalDataFormProps = {
 };
 
 export default function FinalDataForm({ serviceId, appointmentDate }: FinalDataFormProps) {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     ownerName: "",
     phone: "",
     petName: "",
-    serviceId: serviceId,
-    appointment: appointmentDate
   });
 
   useEffect(() => {
@@ -45,15 +44,14 @@ export default function FinalDataForm({ serviceId, appointmentDate }: FinalDataF
     return () => window.removeEventListener('google-login-success', handleGoogleSuccess);
   }, []);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    localStorage.setItem("pampaw_profile", JSON.stringify({
-      name: formData.ownerName,
+    sessionStorage.setItem("pampaw_booking", JSON.stringify({
+      ownerName: formData.ownerName,
       phone: formData.phone,
+      petName: formData.petName,
     }));
-    const form = e.currentTarget;
-    const fd = new FormData(form);
-    await createAppointment(fd);
+    router.push(`/agendar-cita/confirmar?serviceId=${serviceId}&date=${appointmentDate}`);
   };
 
   return (
@@ -74,9 +72,6 @@ export default function FinalDataForm({ serviceId, appointmentDate }: FinalDataF
       </div>
 
       <form onSubmit={handleSubmit} className="grid gap-5">
-        <input type="hidden" name="serviceId" value={formData.serviceId} />
-        <input type="hidden" name="appointment" value={formData.appointment} />
-
         <div className="grid gap-5 md:grid-cols-2">
           <div className="space-y-2">
             <label className="text-[10px] font-black uppercase tracking-[0.2em] text-neutral-500">Tu Nombre</label>
@@ -121,7 +116,7 @@ export default function FinalDataForm({ serviceId, appointmentDate }: FinalDataF
           type="submit"
           className="mt-4 w-full rounded-full bg-neutral-900 px-8 py-4 text-[10px] font-black uppercase tracking-[0.35em] text-white transition-all duration-300 hover:bg-neutral-800 hover:shadow-lg active:scale-[0.97]"
         >
-          Confirmar Reserva
+          Revisar Reserva →
         </button>
       </form>
     </div>

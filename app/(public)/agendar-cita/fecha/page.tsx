@@ -75,12 +75,17 @@ export default async function AppointmentDateSelectionPage({
             <span className="flex h-7 w-7 items-center justify-center rounded-full bg-neutral-200 text-neutral-400 text-[10px] font-black">3</span>
             <span className="text-[10px] font-black uppercase tracking-[0.15em] text-neutral-300 hidden xs:inline">Datos</span>
           </div>
+          <div className="w-6 sm:w-10 h-px bg-neutral-200" />
+          <div className="flex items-center gap-1.5 sm:gap-2.5">
+            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-neutral-200 text-neutral-400 text-[10px] font-black">4</span>
+            <span className="text-[10px] font-black uppercase tracking-[0.15em] text-neutral-300 hidden xs:inline">Confirmar</span>
+          </div>
         </div>
 
         <div className="text-center mb-10">
           <span className="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-white px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.2em] text-neutral-500">
             <Calendar className="h-3 w-3" strokeWidth={2} />
-            Paso 2 de 3
+            Paso 2 de 4
           </span>
           <h1 className="mt-6 text-3xl font-black tracking-tighter text-neutral-900 md:text-4xl">
             ¿Cuándo te <br className="sm:hidden" />

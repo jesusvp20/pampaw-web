@@ -56,16 +56,27 @@ export default function Benefits() {
             const Icon = benefit.icon;
             return (
               <Reveal key={benefit.title} delay={i * 100} y={28}>
-                <div className="group relative rounded-[2rem] border border-neutral-100 bg-white p-10 transition-all duration-300 hover:border-neutral-300 hover:shadow-lg hover:-translate-y-1">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-neutral-100 text-neutral-600 transition-all duration-300 group-hover:bg-neutral-900 group-hover:text-white mb-6">
-                    <Icon className="h-5 w-5" strokeWidth={1.5} />
+                <div className="group relative rounded-[2.5rem] border border-neutral-200/60 bg-white p-10 transition-all duration-500 hover:border-neutral-350 hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.08)] hover:-translate-y-1.5 overflow-hidden">
+                  {/* Animated Top Line Glow */}
+                  <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-neutral-950 to-neutral-750 rounded-t-[2.5rem] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+
+                  {/* Elegant Number Overlay */}
+                  <span className="absolute top-8 right-8 text-[48px] font-black text-neutral-100 leading-none select-none group-hover:text-neutral-200/60 transition-colors duration-500">
+                    0{i + 1}
+                  </span>
+
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-neutral-100 text-neutral-600 transition-all duration-300 group-hover:bg-neutral-900 group-hover:text-white mb-6 relative z-10">
+                    <Icon className="h-5 w-5 transition-transform duration-500 group-hover:rotate-6 group-hover:scale-110" strokeWidth={1.5} />
                   </div>
-                  <h3 className="text-xl font-black tracking-tight text-neutral-900">
-                    {benefit.title}
-                  </h3>
-                  <p className="mt-5 text-base font-medium leading-relaxed text-neutral-500">
-                    {benefit.description}
-                  </p>
+                  
+                  <div className="relative z-10">
+                    <h3 className="text-xl font-black tracking-tight text-neutral-900">
+                      {benefit.title}
+                    </h3>
+                    <p className="mt-5 text-base font-medium leading-relaxed text-neutral-500">
+                      {benefit.description}
+                    </p>
+                  </div>
                 </div>
               </Reveal>
             );

@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { CalendarClock, Plus, PawPrint, Trash2, Calendar, ChevronRight, LogOut } from "lucide-react";
+import { CalendarClock, Plus, PawPrint, Trash2, Calendar, ChevronRight, LogOut, X } from "lucide-react";
+import { deleteAppointment } from "@/actions/appointments/delete-appointment";
 
 type Appointment = {
   id: string;
@@ -23,6 +24,7 @@ export default function DashboardClientPage() {
   const [pets, setPets] = useState<Pet[]>([]);
   const [newPetName, setNewPetName] = useState("");
   const [loading, setLoading] = useState(true);
+  const [deleting, setDeleting] = useState<string | null>(null);
 
   useEffect(() => {
     const saved = localStorage.getItem("pampaw_profile");
@@ -60,6 +62,13 @@ export default function DashboardClientPage() {
     const updated = pets.filter(p => p.id !== id);
     setPets(updated);
     localStorage.setItem("pampaw_pets", JSON.stringify(updated));
+  };
+
+  const handleDeleteAppointment = async (id: string) => {
+    setDeleting(id);
+    await deleteAppointment(id);
+    setAppointments(prev => prev.filter(a => a.id !== id));
+    setDeleting(null);
   };
 
   const logout = () => {
@@ -268,9 +277,19 @@ export default function DashboardClientPage() {
                         {formatDate(app.date)} — {app.petName}
                       </p>
                     </div>
-                    <span className="rounded-full bg-neutral-100 px-3 py-1 text-[8px] font-bold uppercase tracking-wider text-neutral-400">
-                      Completada
-                    </span>
+                    <div className="flex items-center gap-3">
+                      <span className="rounded-full bg-neutral-100 px-3 py-1 text-[8px] font-bold uppercase tracking-wider text-neutral-400">
+                        Completada
+                      </span>
+                      <button
+                        onClick={() => handleDeleteAppointment(app.id)}
+                        disabled={deleting === app.id}
+                        className="flex h-8 w-8 items-center justify-center rounded-full border border-neutral-200 text-neutral-400 transition-all hover:border-red-300 hover:bg-red-50 hover:text-red-500 disabled:opacity-40"
+                        aria-label={`Eliminar cita de ${app.petName}`}
+                      >
+                        <X className="h-3.5 w-3.5" strokeWidth={2} />
+                      </button>
+                    </div>
                   </div>
                 ))}
               </div>

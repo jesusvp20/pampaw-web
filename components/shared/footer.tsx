@@ -6,11 +6,11 @@ export default function Footer() {
       <div className="mx-auto grid max-w-7xl gap-12 px-6 py-20 md:grid-cols-4">
         {/* Brand */}
         <div className="md:col-span-1">
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-6 group">
             <img 
               src="/images/logo-no-bg.png" 
               alt="Pampaw Logo" 
-              className="h-24 w-auto"
+              className="h-24 w-auto transition-transform duration-500 group-hover:scale-105"
             />
             <div className="flex flex-col">
               <h2 className="text-3xl font-black tracking-tighter text-neutral-900 leading-none">PAMPAW</h2>
@@ -23,8 +23,8 @@ export default function Footer() {
           </p>
           
           <div className="mt-6 flex gap-4">
-            <a href="https://instagram.com/pampaw_co" target="_blank" rel="noopener noreferrer" className="text-neutral-400 hover:text-black transition-colors p-3 -m-3" aria-label="Instagram">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+            <a href="https://instagram.com/pampaw_co" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center h-10 w-10 rounded-full bg-neutral-100 text-neutral-400 hover:bg-neutral-900 hover:text-white transition-all duration-300" aria-label="Instagram">
+              <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
             </a>
           </div>
         </div>

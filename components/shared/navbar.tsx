@@ -60,17 +60,17 @@ export default function Navbar() {
           }`}
         >
           <div
-            className={`flex items-center justify-between transition-all duration-500 ${
+            className={`flex items-center justify-between transition-all duration-500 backdrop-blur-md ${
               isHeroVisible
-                ? "rounded-2xl border border-white/10 bg-black/40 px-6 py-3"
-                : "rounded-2xl bg-white/90 px-6 py-3"
+                ? "rounded-2xl border border-white/10 bg-black/45 px-6 py-3"
+                : "rounded-2xl border border-neutral-200/40 bg-white/80 shadow-xs px-6 py-3"
             }`}
           >
             <Link href="/" className="flex items-center gap-3 group">
               <img
                 src="/images/logo-no-bg.png"
                 alt="Pampaw Logo"
-                className={`h-10 w-auto transition-all duration-300 ${
+                className={`h-10 w-auto transition-all duration-300 group-hover:scale-105 ${
                   isHeroVisible ? "brightness-0 invert" : ""
                 }`}
               />

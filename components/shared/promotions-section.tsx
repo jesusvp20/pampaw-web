@@ -58,42 +58,53 @@ export default function PromotionsSection({ promotions }: PromotionsSectionProps
         </Reveal>
 
         <div className="mt-20 grid gap-8 md:grid-cols-3">
-          {displayPromos.map((promo, index) => (
-            <Reveal key={index} delay={index * 120} y={28}>
-              <div className={`group relative overflow-hidden rounded-[2.5rem] border border-neutral-100 bg-gradient-to-b ${promo.gradient} p-12 transition-all duration-300 hover:border-neutral-300 hover:shadow-lg hover:-translate-y-1`}>
-                {"discount" in promo && promo.discount > 0 && (
-                  <div className="absolute top-8 right-8 flex items-center gap-1 rounded-full bg-black px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest text-white">
-                    <Tag className="h-3 w-3" />
-                    -{promo.discount}%
-                  </div>
-                )}
-                
-                <div className="relative">
-                  <span className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-[10px] font-bold uppercase tracking-wider ${badgeStyles[promo.badge] || "bg-neutral-100 text-neutral-600"}`}>
-                    <Sparkles className="h-3 w-3" strokeWidth={2} />
-                    {promo.badge === "spa" ? "Bienestar" : promo.badge === "salud" ? "Salud" : "Ahorro"}
-                  </span>
-                  
-                  <h4 className="mt-6 text-2xl font-black tracking-tight text-neutral-900">
-                    {promo.name}
-                  </h4>
-                  <p className="mt-4 text-base text-neutral-500 leading-relaxed">
-                    {promo.description}
-                  </p>
+          {displayPromos.map((promo, index) => {
+            const badgeGradients: Record<string, string> = {
+              spa: "from-amber-400 to-amber-200",
+              salud: "from-blue-400 to-blue-200",
+              shop: "from-emerald-400 to-emerald-200",
+            };
+            
+            return (
+              <Reveal key={index} delay={index * 120} y={28}>
+                <div className={`group relative overflow-hidden rounded-[2.5rem] border border-neutral-200/60 bg-gradient-to-b ${promo.gradient} p-12 transition-all duration-500 hover:border-neutral-350 hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.08)] hover:-translate-y-1.5`}>
+                  {/* Animated Top Line Glow */}
+                  <div className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${badgeGradients[promo.badge] || "from-neutral-400 to-neutral-200"} rounded-t-[2.5rem] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left`} />
 
-                  <Link
-                    href="/agendar-cita"
-                    className="mt-8 inline-flex items-center gap-3 text-[11px] font-bold uppercase tracking-widest text-neutral-900 transition-all duration-300 hover:text-neutral-600 group/link"
-                  >
-                    <span>Aprovechar ahora</span>
-                    <span className="flex h-8 w-8 items-center justify-center rounded-full border border-neutral-200 transition-all duration-300 group-hover/link:border-neutral-900 group-hover/link:bg-neutral-900 group-hover/link:text-white">
-                      <ArrowRight className="h-4 w-4" strokeWidth={2} />
+                  {"discount" in promo && promo.discount > 0 && (
+                    <div className="absolute top-8 right-8 flex items-center gap-1 rounded-full bg-black px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest text-white">
+                      <Tag className="h-3 w-3" />
+                      -{promo.discount}%
+                    </div>
+                  )}
+                  
+                  <div className="relative">
+                    <span className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-[10px] font-bold uppercase tracking-wider ${badgeStyles[promo.badge] || "bg-neutral-100 text-neutral-600"}`}>
+                      <Sparkles className="h-3 w-3" strokeWidth={2} />
+                      {promo.badge === "spa" ? "Bienestar" : promo.badge === "salud" ? "Salud" : "Ahorro"}
                     </span>
-                  </Link>
+                    
+                    <h4 className="mt-6 text-2xl font-black tracking-tight text-neutral-900">
+                      {promo.name}
+                    </h4>
+                    <p className="mt-4 text-base text-neutral-500 leading-relaxed">
+                      {promo.description}
+                    </p>
+
+                    <div className="mt-8 flex justify-end">
+                      <Link
+                        href="/agendar-cita"
+                        className="group/btn inline-flex items-center gap-2 rounded-full border-2 border-neutral-900 bg-transparent px-6 py-3 text-[10px] font-black uppercase tracking-widest text-neutral-900 transition-all duration-300 hover:bg-neutral-900 hover:text-white active:scale-95"
+                      >
+                        <span>Aprovechar ahora</span>
+                        <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-0.5" strokeWidth={2} />
+                      </Link>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </Reveal>
-          ))}
+              </Reveal>
+            );
+          })}
         </div>
       </div>
     </section>

@@ -47,6 +47,31 @@ html {
   }
 }
 
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton-shimmer {
+  background: linear-gradient(
+    90deg,
+    theme(colors.neutral.100) 25%,
+    theme(colors.neutral.200) 37%,
+    theme(colors.neutral.100) 63%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+.dark .skeleton-shimmer {
+  background: linear-gradient(
+    90deg,
+    theme(colors.neutral.800) 25%,
+    theme(colors.neutral.700) 37%,
+    theme(colors.neutral.800) 63%
+  );
+}
+
 .reveal-section {
   animation: fadeInUp 0.8s ease-out forwards;
 }

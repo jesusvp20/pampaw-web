@@ -132,7 +132,7 @@ function GalleryItem({
           <h3 className="text-lg md:text-2xl font-black tracking-tight text-white">
             {image.title}
           </h3>
-          <p className="mt-1 text-xs md:text-sm font-medium text-white/70 tracking-wide">
+          <p className="mt-1 text-xs md:text-sm font-medium text-white/70 tracking-wide opacity-0 group-hover:opacity-100 transition-all duration-500 delay-75">
             {image.subtitle}
           </p>
         </div>

@@ -14,8 +14,18 @@ export default function ProductCard({
   imageUrl,
 }: ProductCardProps) {
   return (
-    <div className="group overflow-hidden rounded-[2rem] border border-neutral-100 bg-white transition-all duration-300 hover:border-neutral-300 hover:shadow-lg hover:-translate-y-1">
+    <div className="group relative overflow-hidden rounded-[2.5rem] border border-neutral-200/60 bg-white transition-all duration-500 hover:border-neutral-350 hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.08)] hover:-translate-y-1.5">
+      {/* Animated Top Line Glow */}
+      <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-neutral-900 to-neutral-700 rounded-t-[2.5rem] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+
       <div className="aspect-square overflow-hidden bg-neutral-50 relative">
+        {/* Floating Premium Glass Tag */}
+        <div className="absolute top-6 left-6 z-10">
+          <span className="rounded-full bg-white/80 backdrop-blur-md px-3 py-1.5 text-[8px] font-extrabold uppercase tracking-widest text-neutral-900 shadow-xs border border-neutral-250/20">
+            Premium
+          </span>
+        </div>
+
         <img
           src={imageUrl || "/images/placeholder.jpg"}
           alt={name}
@@ -51,9 +61,9 @@ export default function ProductCard({
             href={`https://wa.me/573000000000?text=Hola,%20quiero%20comprar%20el%20producto:%20${encodeURIComponent(name)}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 rounded-full bg-neutral-900 px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-white transition-all duration-300 hover:bg-neutral-800 hover:shadow-lg active:scale-95"
+            className="group/btn flex items-center gap-2 rounded-full border-2 border-neutral-900 bg-transparent px-6 py-3 text-[10px] font-black uppercase tracking-widest text-neutral-900 transition-all duration-300 hover:bg-neutral-900 hover:text-white active:scale-95"
           >
-            <ShoppingCart className="h-4 w-4" strokeWidth={2} />
+            <ShoppingCart className="h-4 w-4 transition-transform duration-300 group-hover/btn:-translate-y-0.5 group-hover/btn:translate-x-0.5" strokeWidth={2} />
             Comprar
           </a>
         </div>

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { CalendarClock, ArrowRight, Sparkles } from "lucide-react";
+import AuthButton from "@/components/auth/auth-button";
 
 export default function Hero() {
   return (
@@ -46,6 +47,8 @@ export default function Hero() {
               <CalendarClock className="h-4 w-4" strokeWidth={2} />
               Reservar Ahora
             </Link>
+
+            <AuthButton />
 
             <Link
               href="/petshop"
