@@ -16,10 +16,10 @@ export default async function SpaCaninoPage() {
         <div className="mx-auto max-w-7xl px-6">
           <div className="max-w-3xl">
             <span className="rounded-full bg-white px-4 py-2 text-sm font-medium text-neutral-700 shadow-sm">
-              🐶 Spa Canino en Barranquilla
+              Spa Canino en Barranquilla
             </span>
 
-            <h1 className="mt-6 text-5xl font-bold leading-tight text-neutral-900">
+            <h1 className="mt-6 text-4xl md:text-5xl font-black tracking-tight text-neutral-900 leading-[1.1]">
               Cuidado premium para tu mascota.
             </h1>
 

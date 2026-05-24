@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { ArrowRight, Tag, Sparkles } from "lucide-react";
+import Reveal from "@/components/shared/reveal";
 
 interface PromotionsSectionProps {
   promotions: any[];
@@ -9,67 +11,91 @@ export default function PromotionsSection({ promotions }: PromotionsSectionProps
     {
       name: "Spa & Bienestar",
       description: "Descubre nuestras tarifas especiales para consentir a tu mascota con los mejores servicios de grooming.",
+      gradient: "from-amber-50 to-amber-100/50",
+      badge: "spa",
     },
     {
       name: "Plan Salud Pampaw",
       description: "Conoce los beneficios de nuestros planes veterinarios diseñados para cada etapa de vida.",
+      gradient: "from-blue-50 to-blue-100/50",
+      badge: "salud",
     },
     {
       name: "Petshop Premium",
       description: "Explora las promociones exclusivas en alimentos de alta gama y accesorios seleccionados.",
+      gradient: "from-emerald-50 to-emerald-100/50",
+      badge: "shop",
     },
   ];
 
+  const badgeStyles: Record<string, string> = {
+    spa: "bg-amber-500/10 text-amber-700 border-amber-200",
+    salud: "bg-blue-500/10 text-blue-700 border-blue-200",
+    shop: "bg-emerald-500/10 text-emerald-700 border-emerald-200",
+  };
+
   return (
-    <section id="promos" className="bg-[#fbfaf8] py-32">
-      <div className="mx-auto max-w-7xl px-6">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
-          <div>
-            <h2 className="text-[10px] font-black uppercase tracking-[0.3em] text-neutral-400">
-              Ofertas Exclusivas
-            </h2>
-            <h3 className="mt-4 text-4xl font-extrabold tracking-tight text-neutral-900 md:text-5xl">
-              Descubre nuestras <br />
-              <span className="text-neutral-300">Promociones Especiales</span>
-            </h3>
+    <section id="promos" className="relative bg-[#fbfaf8] py-32 overflow-hidden">
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-gradient-to-b from-neutral-200/20 to-transparent rounded-full blur-3xl" />
+      
+      <div className="relative z-10 mx-auto max-w-7xl px-6">
+        <Reveal>
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
+            <div>
+              <span className="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-white px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.2em] text-neutral-500">
+                <Tag className="h-3 w-3" strokeWidth={2} />
+                Ofertas Exclusivas
+              </span>
+              <h3 className="mt-6 text-4xl font-extrabold tracking-tight text-neutral-900 md:text-5xl">
+                Descubre nuestras <br />
+                <span className="text-neutral-300">Promociones Especiales</span>
+              </h3>
+            </div>
+            <p className="max-w-md text-lg text-neutral-500 font-medium">
+              Aprovecha nuestros beneficios exclusivos diseñados para el bienestar de tu mascota y tu tranquilidad.
+            </p>
           </div>
-          <p className="max-w-md text-lg text-neutral-500 font-medium">
-            Aprovecha nuestros beneficios exclusivos diseñados para el bienestar de tu mascota y tu tranquilidad.
-          </p>
-        </div>
+        </Reveal>
 
         <div className="mt-20 grid gap-8 md:grid-cols-3">
           {displayPromos.map((promo, index) => (
-            <div 
-              key={index}
-              className="group relative overflow-hidden rounded-[2.5rem] border border-neutral-100 bg-white p-12 transition-all duration-300 hover:border-neutral-900/10 hover:bg-neutral-50/50"
-            >
-              {"discount" in promo && promo.discount > 0 && (
-                <div className="absolute top-8 right-8 rounded-full bg-black px-4 py-1.5 text-[9px] font-black uppercase tracking-widest text-white">
-                  -{promo.discount}%
+            <Reveal key={index} delay={index * 120} y={28}>
+              <div className={`group relative overflow-hidden rounded-[2.5rem] border border-neutral-100 bg-gradient-to-b ${promo.gradient} p-12 transition-all duration-300 hover:border-neutral-300 hover:shadow-lg hover:-translate-y-1`}>
+                {"discount" in promo && promo.discount > 0 && (
+                  <div className="absolute top-8 right-8 flex items-center gap-1 rounded-full bg-black px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest text-white">
+                    <Tag className="h-3 w-3" />
+                    -{promo.discount}%
+                  </div>
+                )}
+                
+                <div className="relative">
+                  <span className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-[10px] font-bold uppercase tracking-wider ${badgeStyles[promo.badge] || "bg-neutral-100 text-neutral-600"}`}>
+                    <Sparkles className="h-3 w-3" strokeWidth={2} />
+                    {promo.badge === "spa" ? "Bienestar" : promo.badge === "salud" ? "Salud" : "Ahorro"}
+                  </span>
+                  
+                  <h4 className="mt-6 text-2xl font-black tracking-tight text-neutral-900">
+                    {promo.name}
+                  </h4>
+                  <p className="mt-4 text-base text-neutral-500 leading-relaxed">
+                    {promo.description}
+                  </p>
+
+                  <Link
+                    href="/agendar-cita"
+                    className="mt-8 inline-flex items-center gap-3 text-[11px] font-bold uppercase tracking-widest text-neutral-900 transition-all duration-300 hover:text-neutral-600 group/link"
+                  >
+                    <span>Aprovechar ahora</span>
+                    <span className="flex h-8 w-8 items-center justify-center rounded-full border border-neutral-200 transition-all duration-300 group-hover/link:border-neutral-900 group-hover/link:bg-neutral-900 group-hover/link:text-white">
+                      <ArrowRight className="h-4 w-4" strokeWidth={2} />
+                    </span>
+                  </Link>
                 </div>
-              )}
-              <h4 className="text-2xl font-black tracking-tight text-neutral-900">
-                {promo.name}
-              </h4>
-              <p className="mt-6 text-base text-neutral-500 leading-relaxed">
-                {promo.description}
-              </p>
-              
-              <Link 
-                href="/agendar-cita"
-                className="mt-10 flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.2em] text-neutral-900"
-              >
-                <span>Aprovechar ahora</span>
-                <span className="flex h-8 w-8 items-center justify-center rounded-full border border-neutral-100 transition-colors group-hover:bg-black group-hover:text-white">
-                  →
-                </span>
-              </Link>
-            </div>
+              </div>
+            </Reveal>
           ))}
         </div>
       </div>
     </section>
   );
 }
-

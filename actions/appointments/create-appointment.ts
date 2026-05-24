@@ -9,11 +9,10 @@ export async function createAppointment(formData: FormData) {
   const ownerName = formData.get("ownerName") as string;
   const phone = formData.get("phone") as string;
   const petName = formData.get("petName") as string;
-  const petType = formData.get("petType") as "DOG" | "CAT" | "OTHER";
   const serviceId = formData.get("serviceId") as string;
   const appointment = formData.get("appointment") as string;
 
-  // 1. Encontrar o crear usuario (Shadow login)
+  // 1. Find or create user (shadow login)
   let user = await prisma.user.findUnique({
     where: { phone },
   });
@@ -27,13 +26,13 @@ export async function createAppointment(formData: FormData) {
     });
   }
 
-  // 2. Crear cita vinculada al usuario
+  // 2. Create appointment linked to user
   await prisma.appointment.create({
     data: {
       ownerName,
       phone,
       petName,
-      petType,
+      petType: "DOG",
       serviceId,
       userId: user.id,
       appointment: new Date(appointment),
@@ -42,5 +41,5 @@ export async function createAppointment(formData: FormData) {
 
   revalidatePath("/dashboard/calendar");
   revalidatePath("/");
-  redirect("/agendar-cita/exito");
-}
+  redirect(`/agendar-cita/exito?name=${encodeURIComponent(ownerName)}&phone=${encodeURIComponent(phone)}`);
+}

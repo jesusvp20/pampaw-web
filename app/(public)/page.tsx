@@ -1,6 +1,7 @@
 import Hero from "@/components/shared/hero";
 import ServicesSection from "@/components/services/services-section";
 import Benefits from "@/components/shared/benefits";
+import Gallery from "@/components/shared/gallery";
 import ProductsSection from "@/components/shop/products-section";
 import PromotionsSection from "@/components/shared/promotions-section";
 
@@ -13,7 +14,6 @@ export const metadata = {
 };
 
 export default async function HomePage() {
-  // Fetch one representative service for each category
   const services = await Promise.all([
     prisma.service.findFirst({ where: { category: "Spa" } }),
     prisma.service.findFirst({ where: { category: "Veterinaria" } }),
@@ -31,11 +31,11 @@ export default async function HomePage() {
     <main className="overflow-hidden">
       <Hero />
       
-      <div id="servicios" className="scroll-mt-48">
+      <div id="servicios" className="scroll-mt-32">
         <ServicesSection services={services} />
       </div>
 
-      <div id="promos" className="scroll-mt-48">
+      <div id="promos" className="scroll-mt-32">
         <PromotionsSection promotions={promotions} />
       </div>
       
@@ -43,7 +43,11 @@ export default async function HomePage() {
         <Benefits />
       </div>
 
-      <div id="petshop" className="scroll-mt-48">
+      <div id="galeria">
+        <Gallery />
+      </div>
+
+      <div id="petshop" className="scroll-mt-32">
         <ProductsSection products={products} />
       </div>
     </main>

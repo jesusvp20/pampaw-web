@@ -1,3 +1,5 @@
+import { MapPin, Phone, Mail } from "lucide-react";
+
 export default function Footer() {
   return (
     <footer className="border-t bg-[#fbfaf8]">
@@ -21,13 +23,13 @@ export default function Footer() {
           </p>
           
           <div className="mt-6 flex gap-4">
-            <a href="https://instagram.com/pampaw_co" target="_blank" className="text-neutral-400 hover:text-black transition-colors">
+            <a href="https://instagram.com/pampaw_co" target="_blank" rel="noopener noreferrer" className="text-neutral-400 hover:text-black transition-colors p-3 -m-3" aria-label="Instagram">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
             </a>
           </div>
         </div>
 
-        {/* Links */}
+        {/* Navigation */}
         <div>
           <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-neutral-900">
             Navegación
@@ -36,8 +38,9 @@ export default function Footer() {
           <ul className="mt-6 space-y-4 text-[13px] font-medium text-neutral-500">
             <li><a href="/" className="hover:text-black transition-colors">Inicio</a></li>
             <li><a href="#servicios" className="hover:text-black transition-colors">Servicios</a></li>
-            <li><a href="/tienda-mascotas-barranquilla" className="hover:text-black transition-colors">Petshop</a></li>
+            <li><a href="/petshop" className="hover:text-black transition-colors">Petshop</a></li>
             <li><a href="#promos" className="hover:text-black transition-colors">Promociones</a></li>
+            <li><a href="#galeria" className="hover:text-black transition-colors">Galería</a></li>
           </ul>
         </div>
 
@@ -65,17 +68,17 @@ export default function Footer() {
             Contacto
           </h3>
 
-          <ul className="mt-6 space-y-4 text-[13px] font-medium text-neutral-500">
-            <li className="flex items-start gap-2">
-              <span>📍</span>
+          <ul className="mt-6 space-y-5 text-[13px] font-medium text-neutral-500">
+            <li className="flex items-start gap-3">
+              <MapPin className="h-4 w-4 text-neutral-400 mt-0.5 shrink-0" strokeWidth={1.5} />
               Barranquilla, Colombia
             </li>
-            <li className="flex items-start gap-2">
-              <span>📞</span>
+            <li className="flex items-start gap-3">
+              <Phone className="h-4 w-4 text-neutral-400 mt-0.5 shrink-0" strokeWidth={1.5} />
               +57 300 000 0000
             </li>
-            <li className="flex items-start gap-2">
-              <span>✉</span>
+            <li className="flex items-start gap-3">
+              <Mail className="h-4 w-4 text-neutral-400 mt-0.5 shrink-0" strokeWidth={1.5} />
               contacto@pampaw.com
             </li>
           </ul>
@@ -85,7 +88,7 @@ export default function Footer() {
       <div className="border-t border-neutral-200 py-8">
         <div className="mx-auto max-w-7xl px-6 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-[11px] font-medium text-neutral-400">
-            © {new Date().getFullYear()} Pampaw Pet Store. Todos los derechos reservados.
+            &copy; {new Date().getFullYear()} Pampaw Pet Store. Todos los derechos reservados.
           </p>
           <p className="text-[10px] font-bold uppercase tracking-widest text-neutral-300">
             Premium Pet Care

@@ -38,7 +38,9 @@ export default function DateAndTimeSelector({
 
   const [selectedDate, setSelectedDate] = useState<Date>(days[0]);
   const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
-  const [timeFilter, setTimeFilter] = useState<"morning" | "afternoon">("morning");
+  const [timeFilter, setTimeFilter] = useState<"morning" | "afternoon">(
+    new Date().getHours() >= 12 ? "afternoon" : "morning"
+  );
 
   const sliderRef = useRef<HTMLDivElement>(null);
 
@@ -206,47 +208,45 @@ export default function DateAndTimeSelector({
   }, [analyzedSlots, timeFilter]);
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-6">
 
-
-      {/* Date Selection Header */}
-      <div className="space-y-6">
+      <div className="space-y-5">
         <div className="flex items-center justify-between">
-          <h3 className="text-[12px] font-black uppercase tracking-[0.3em] text-neutral-900">
+          <h3 className="text-[11px] font-black uppercase tracking-[0.3em] text-neutral-900">
             ¿Cuándo?
           </h3>
-          
-          {/* Month Navigator */}
-          <div className="flex items-center gap-4 bg-neutral-50 px-4 py-2 rounded-full border border-neutral-100">
+
+          <div className="flex items-center gap-3 bg-neutral-50 rounded-full border border-neutral-100">
             <button
               type="button"
               onClick={() => handleScroll("left")}
-              className="text-neutral-500 hover:text-black transition-colors p-1"
+              className="text-neutral-500 hover:text-black transition-colors p-3"
+              aria-label="Días anteriores"
             >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 19l-7-7 7-7" />
               </svg>
             </button>
-            <span className="text-[11px] font-black uppercase tracking-[0.2em] text-neutral-800 min-w-[110px] text-center select-none">
+            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-neutral-800 min-w-[80px] sm:min-w-[100px] text-center select-none">
               {monthYearHeader}
             </span>
             <button
               type="button"
               onClick={() => handleScroll("right")}
-              className="text-neutral-500 hover:text-black transition-colors p-1"
+              className="text-neutral-500 hover:text-black transition-colors p-3"
+              aria-label="Siguientes días"
             >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" />
               </svg>
             </button>
           </div>
         </div>
 
-        {/* Days Horizontal Slider */}
         <div className="relative">
           <div
             ref={sliderRef}
-            className="flex gap-3 overflow-x-auto hide-scrollbar pb-2 px-1 snap-x scroll-smooth"
+            className="flex gap-2 overflow-x-auto hide-scrollbar pb-1 px-0.5 snap-x scroll-smooth"
           >
             {days.map((date, idx) => {
               const isSelected =
@@ -263,22 +263,22 @@ export default function DateAndTimeSelector({
                   type="button"
                   onClick={() => {
                     setSelectedDate(date);
-                    setSelectedSlot(null); // Reset time selection on day change
+                    setSelectedSlot(null);
                   }}
-                  className={`flex flex-col items-center justify-center min-w-[72px] h-[88px] rounded-2xl border transition-all duration-300 snap-start cursor-pointer ${
+                  className={`flex flex-col items-center justify-center min-w-[60px] h-[72px] rounded-xl border transition-all duration-300 snap-start cursor-pointer ${
                     isSelected
-                      ? "bg-black border-black text-white shadow-xl shadow-neutral-900/10 scale-105"
+                      ? "bg-black border-black text-white shadow-md"
                       : "bg-neutral-50 border-neutral-200/60 text-neutral-800 hover:bg-neutral-100 hover:border-neutral-300"
                   }`}
                 >
                   <span
-                    className={`text-[9px] font-black tracking-wider uppercase mb-1.5 ${
+                    className={`text-[8px] font-black tracking-wider uppercase mb-1 ${
                       isSelected ? "text-neutral-300" : "text-neutral-400"
                     }`}
                   >
                     {dayLabel}
                   </span>
-                  <span className="text-2xl font-black tracking-tight">{dayNum}</span>
+                  <span className="text-xl font-black tracking-tight">{dayNum}</span>
                 </button>
               );
             })}
@@ -286,19 +286,17 @@ export default function DateAndTimeSelector({
         </div>
       </div>
 
-      {/* Time Selection Section */}
-      <div className="space-y-6 pt-2">
-        <div className="flex items-center justify-between border-t border-neutral-100 pt-6">
-          <h3 className="text-[12px] font-black uppercase tracking-[0.3em] text-neutral-900">
+      <div className="space-y-5 pt-1">
+        <div className="flex items-center justify-between border-t border-neutral-100 pt-5">
+          <h3 className="text-[11px] font-black uppercase tracking-[0.3em] text-neutral-900">
             ¿A qué hora?
           </h3>
 
-          {/* Morning / Afternoon Toggles */}
-          <div className="flex bg-neutral-50 p-1 rounded-full border border-neutral-100">
+          <div className="flex bg-neutral-50 p-0.5 rounded-full border border-neutral-100">
             <button
               type="button"
               onClick={() => setTimeFilter("morning")}
-              className={`rounded-full px-6 py-2.5 text-[9px] font-black uppercase tracking-[0.2em] transition-all duration-300 ${
+              className={`rounded-full px-5 py-3 text-[8px] font-black uppercase tracking-[0.2em] transition-all duration-300 ${
                 timeFilter === "morning"
                   ? "bg-black text-white shadow-sm"
                   : "text-neutral-400 hover:text-neutral-900"
@@ -309,7 +307,7 @@ export default function DateAndTimeSelector({
             <button
               type="button"
               onClick={() => setTimeFilter("afternoon")}
-              className={`rounded-full px-6 py-2.5 text-[9px] font-black uppercase tracking-[0.2em] transition-all duration-300 ${
+              className={`rounded-full px-5 py-3 text-[8px] font-black uppercase tracking-[0.2em] transition-all duration-300 ${
                 timeFilter === "afternoon"
                   ? "bg-black text-white shadow-sm"
                   : "text-neutral-400 hover:text-neutral-900"
@@ -320,8 +318,7 @@ export default function DateAndTimeSelector({
           </div>
         </div>
 
-        {/* Time Slots Grid */}
-        <div className="grid grid-cols-3 sm:grid-cols-4 gap-3.5">
+        <div className="grid grid-cols-4 sm:grid-cols-5 gap-2.5">
           {filteredSlots.map((slot, index) => {
             const isSelected = selectedSlot === slot.time;
             const { isAvailable, isOverlapping, isPast, exceedsClosing } = slot;
@@ -329,7 +326,7 @@ export default function DateAndTimeSelector({
             let statusText = "";
             if (!isAvailable) {
               if (isPast) statusText = "Pasado";
-              else if (isOverlapping) statusText = "Ocupado";
+              else if (isOverlapping) statusText = "";
               else if (exceedsClosing) statusText = "Cierre";
             }
 
@@ -339,30 +336,29 @@ export default function DateAndTimeSelector({
                 type="button"
                 disabled={!isAvailable}
                 onClick={() => setSelectedSlot(slot.time)}
-                className={`group flex flex-col items-center justify-center py-4 px-3 rounded-2xl border text-center transition-all duration-300 relative overflow-hidden select-none ${
-                  isSelected
-                    ? "bg-black border-black text-white shadow-lg shadow-neutral-900/10 scale-102"
-                    : isAvailable
-                    ? "bg-neutral-50 border-neutral-200/50 hover:bg-neutral-100 hover:border-neutral-300 text-neutral-800 cursor-pointer active:scale-95"
-                    : "bg-neutral-100/40 border-neutral-100 text-neutral-300 cursor-not-allowed"
-                }`}
+                className={`group flex flex-col items-center justify-center py-3.5 px-2 rounded-xl border text-center transition-all duration-300 relative overflow-hidden select-none ${
+                   isSelected
+                     ? "bg-black border-black text-white shadow-md"
+                     : isAvailable
+                     ? "bg-neutral-50 border-neutral-200/50 hover:bg-neutral-100 hover:border-neutral-300 text-neutral-800 cursor-pointer active:scale-95"
+                     : "bg-neutral-100/40 border-neutral-100 text-neutral-300 cursor-not-allowed"
+                 }`}
               >
-                {/* Diagonal stripes overlay for unavailable slots */}
                 {!isAvailable && (
-                  <div 
-                    className="absolute inset-0 opacity-[0.03] pointer-events-none" 
+                  <div
+                    className="absolute inset-0 opacity-[0.03] pointer-events-none"
                     style={{
                       backgroundImage: 'repeating-linear-gradient(45deg, #000 0px, #000 1px, transparent 1px, transparent 8px)'
                     }}
                   />
                 )}
 
-                <span className={`text-[15px] font-black tracking-tight ${isSelected ? "text-white" : isAvailable ? "text-neutral-850" : "text-neutral-350"}`}>
+                <span className={`text-[14px] font-black tracking-tight ${isSelected ? "text-white" : isAvailable ? "text-neutral-850" : "text-neutral-350"}`}>
                   {slot.time}
                 </span>
 
                 {statusText && (
-                  <span className="text-[7.5px] font-black uppercase tracking-[0.1em] text-neutral-400 mt-1">
+                  <span className="text-[7px] font-black uppercase tracking-[0.1em] text-neutral-400 mt-0.5">
                     {statusText}
                   </span>
                 )}
@@ -372,7 +368,7 @@ export default function DateAndTimeSelector({
         </div>
 
         {filteredSlots.length === 0 && (
-          <div className="text-center py-10 bg-neutral-50 rounded-3xl border border-neutral-100">
+          <div className="text-center py-8 bg-neutral-50 rounded-2xl border border-neutral-100">
             <p className="text-xs font-bold text-neutral-400 uppercase tracking-wider">
               No hay horarios disponibles en esta jornada
             </p>
@@ -380,17 +376,16 @@ export default function DateAndTimeSelector({
         )}
       </div>
 
-      {/* Main Reservation Submit Form (Native GET request submitter) */}
-      <form action="/agendar-cita/datos" method="GET" className="pt-6 border-t border-neutral-100">
+      <form action="/agendar-cita/datos" method="GET" className="pt-5 border-t border-neutral-100">
         <input type="hidden" name="serviceId" value={serviceId} />
         <input type="hidden" name="date" value={selectedDateTimeISO} />
 
         <button
           type="submit"
           disabled={!selectedSlot}
-          className={`w-full rounded-full py-5 text-xs font-black uppercase tracking-[0.3em] transition-all duration-300 shadow-xl active:scale-95 ${
+          className={`w-full rounded-full py-4 text-[10px] font-black uppercase tracking-[0.3em] transition-all duration-300 shadow-lg active:scale-[0.97] ${
             selectedSlot
-              ? "bg-black text-white hover:bg-neutral-800 cursor-pointer"
+              ? "bg-neutral-900 text-white hover:bg-neutral-800 cursor-pointer"
               : "bg-neutral-100 text-neutral-400 border border-neutral-200/50 cursor-not-allowed shadow-none"
           }`}
         >
